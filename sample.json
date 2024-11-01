@@ -1,0 +1,11 @@
+{
+    "name": "Sample Project",
+    "version": "1.0.0",
+    "description": "This is a sample JSON file for demonstration purposes.",
+    "dependencies": {
+        "library1": "2.3.4",
+        "library2": "1.0.0"
+    },
+    "author": "Max Tru",
+    "license": "MIT"
+}
