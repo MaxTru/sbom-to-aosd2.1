@@ -4,16 +4,33 @@
 
 echo "Starting the transformation process..."
 
-input_file="bom.json"
-output_file="output.json"
+input_file="./inputs/tasklist-frontend-sbom.json"
+output_file="./results/tasklist-frontend-aosd.json"
+license_summary="./results/tasklist-frontend-licenseSummary.json"
 
 if [ -f "$input_file" ]; then
     echo "Processing $input_file..."
     
-    jq -f ./transformToAosd.jq $input_file |
-     tee $output_file
+    # (1) Transform the input SBOM to the AOSD format
+    echo "Transforming SBOM to AOSD format..."
+
+    # (1.1) Transform the SBOM to the AOSD format
+    jq -f ./transformToAosd.jq $input_file | 
+      # (1.2) Add license priorities
+      jq -f ./addLicensePrio.jq |
+      # (1.3) Reduce to one license per dependency based on set priorities
+      jq -f ./reduceToOneLicense.jq |
+      tee $output_file
 
     echo "Transformation complete. Output saved to $output_file."
+
+    # (3) Extract unique licenses from the transformed AOSD file
+    echo "Extracting unique licenses..."
+
+    jq '[.dependencies[].licenses[].spdxId] | unique | .[] | [ {spdxId: ., text: "tbd"} ]' $output_file |
+     tee $license_summary
+
+    echo "License extraction complete. Output saved to $license_summary." 
 else
     echo "Input file $input_file not found."
 fi

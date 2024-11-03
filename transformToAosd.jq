@@ -1,11 +1,11 @@
-include "module-licenseMapping";
+include "module-utils";
 
 {
   "$schema": "./aosd.schema.json",
-  directDependencies: [],
+  directDependencies: [range(1; (.components | length))] | map(tostring),
   dependencies: .components | to_entries | [.[] | map_values(.) | .value.name as $currentName |
     {
-      id: .key | tostring,
+      id: (.key + 1) | tostring,
       name: .value.name,
       version: .value.version,
       licenses: .value.licenses | [.[] |
