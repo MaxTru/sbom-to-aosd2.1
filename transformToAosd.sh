@@ -4,9 +4,9 @@
 
 echo "Starting the transformation process..."
 
-input_file="./inputs/tasklist-frontend-sbom.json"
-output_file="./results/tasklist-frontend-aosd.json"
-license_summary="./results/tasklist-frontend-licenseSummary.json"
+input_file="./inputs/webmodeler-webapp-sbom.json"
+output_file="./results/webmodeler-webapp-aosd.json"
+license_summary="./results/webmodeler-webapp-licenseSummary.json"
 
 if [ -f "$input_file" ]; then
     echo "Processing $input_file..."

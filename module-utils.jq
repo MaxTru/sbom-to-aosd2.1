@@ -1,7 +1,11 @@
 # Returns custom license if license is not given
 def getCustomSpdx(packageName): packageName | 
-  if contains("camunda") or contains("zeebe") or contains("identity") or contains("webapps") or contains("operate") or contains("tasklist") or contains("optimize") or contains("document-") or contains("bpmn-js") or contains("form-js") or contains("dmn-js")
-      then "Commercial" 
+  if contains("camunda") or contains("zeebe") or contains("document-")
+      then "Camunda1.0" 
+    elif contains("identity") or contains("webapps") or contains("operate") or contains("tasklist") or contains("optimize")
+      then "CamundaEnterprise"
+    elif contains("bpmn-js") or contains("form-js") or contains("dmn-js")
+      then "bpmn-io"
     elif contains("parsson") or contains("jakarta.json")
       then "GPL-2.0-with-classpath-exception"
     elif contains("javax.activation-api") or contains("javax.annotation-api")
@@ -49,3 +53,24 @@ def getLicensePrio(spdxId):
   elif spdxId == "GPL-2.0" then 33
   elif spdxId == "TMate" then 34
   else 99 end;
+
+# Returns a license text for a given license
+def getLicenseText(spdxId):
+  if spdxId == "Apache-2.0" then "https://www.apache.org/licenses/LICENSE-2.0.txt"
+  elif spdxId == "BSD-3-Clause" then "https://opensource.org/license/bsd-3-clause"
+  elif spdxId == "BSD-2-Clause" then "https://opensource.org/license/bsd-2-clause"
+  elif spdxId == "CC0-1.0" then "https://creativecommons.org/publicdomain/zero/1.0/legalcode.txt"
+  elif spdxId == "CDDL-1.1" then "https://spdx.org/licenses/CDDL-1.1.html"
+  elif spdxId == "EPL-2.0" then "https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.txt"
+  elif spdxId == "Elastic-2.0" then "https://github.com/elastic/elasticsearch/blob/main/LICENSE.txt"
+  elif spdxId == "MIT" then "https://spdx.org/licenses/MIT.html"
+  elif spdxId == "MPL-2.0" then "https://www.mozilla.org/media/MPL/2.0/index.815ca599c9df.txt"
+  elif spdxId == "0BSD" then "https://spdx.org/licenses/0BSD.html"
+  elif spdxId == "ISC" then "https://spdx.org/licenses/ISC.html"
+  elif spdxId == "MIT-0" then "https://github.com/aws/mit-0"
+  elif spdxId == "LGPL-2.1-only" then "https://choosealicense.com/licenses/lgpl-2.1/"
+  elif spdxId == "EPL-1.0" then "https://choosealicense.com/licenses/lgpl-2.1/"
+  elif spdxId == "Camunda1.0" then "https://legal.camunda.com/licensing-and-other-legal-terms#camunda-license"
+  elif spdxId == "CamundaEnterprise" then "Proprierary Camunda"
+  elif spdxId == "bpmn-io" then "https://bpmn.io/license/"
+  else "TODO: undefined" end;

@@ -10,7 +10,7 @@ include "module-utils";
       version: .value.version,
       licenses: .value.licenses | [.[] |
         {
-          spdxId: (if .license | has("id") then .license.id else getCustomSpdx($currentName) end), text: "TO BE ADDED"
+          spdxId: (if .license | has("id") then .license.id else getCustomSpdx($currentName) end), text: (if .license | has("id") then getLicenseText(.license.id) else getLicenseText(getCustomSpdx($currentName)) end)
         }],
       parts: [{name: "default", providers: []}],
       deployPackage: {name: "default"}
