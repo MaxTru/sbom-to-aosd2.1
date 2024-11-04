@@ -1,4 +1,4 @@
-# Returns "commercial" for Camunda or Zeebe packages
+# Returns custom license if license is not given
 def getCustomSpdx(packageName): packageName | 
   if contains("camunda") or contains("zeebe") or contains("identity") or contains("webapps") or contains("operate") or contains("tasklist") or contains("optimize") or contains("document-") or contains("bpmn-js") or contains("form-js") or contains("dmn-js")
       then "Commercial" 
@@ -12,6 +12,7 @@ def getCustomSpdx(packageName): packageName |
       then "Apache-2.0"
     else "TODO: undefined" end;
 
+# Returns a license prio (e.g., to filter out one if multiple licenses are given)
 def getLicensePrio(spdxId):
   if spdxId == "BSD-3-Clause" then 1
   elif spdxId == "EDL-1.0" then 2
