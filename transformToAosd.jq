@@ -12,7 +12,9 @@ include "module-utils";
         {
           spdxId: (if .license | has("id") then .license.id else getCustomSpdx($currentName) end), text: (if .license | has("id") then getLicenseText(.license.id) else getLicenseText(getCustomSpdx($currentName)) end)
         }],
-      parts: [{name: "default", providers: []}],
+      parts: [
+        {name: "default", providers: [], external: isNoCamunda($currentName)}
+        ],
       deployPackage: {name: "default"}
     }
   ]

@@ -4,9 +4,9 @@
 
 echo "Starting the transformation process..."
 
-input_file="./inputs/webmodeler-webapp-sbom.json"
-output_file="./results/webmodeler-webapp-aosd.json"
-license_summary="./results/webmodeler-webapp-licenseSummary.json"
+input_file="./inputs/identity-frontend-sbom.json"
+output_file="./results/identity-frontend-aosd.json"
+license_summary="./results/identity-frontend-licenseSummary.json"
 
 if [ -f "$input_file" ]; then
     echo "Processing $input_file..."
@@ -20,6 +20,8 @@ if [ -f "$input_file" ]; then
       jq -f ./addLicensePrio.jq |
       # (1.3) Reduce to one license per dependency based on set priorities
       jq -f ./reduceToOneLicense.jq |
+      # (1.4) Add parts
+      jq -f ./addParts.jq |
       tee $output_file
 
     echo "Transformation complete. Output saved to $output_file."

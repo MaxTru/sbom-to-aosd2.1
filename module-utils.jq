@@ -74,3 +74,9 @@ def getLicenseText(spdxId):
   elif spdxId == "CamundaEnterprise" then "Proprierary Camunda"
   elif spdxId == "bpmn-io" then "https://bpmn.io/license/"
   else "TODO: undefined" end;
+
+# Returns whether the dependency is an external dependency (vs camunda)
+def isNoCamunda(packageName): packageName | 
+  if contains("camunda") or contains("zeebe") or contains("document-") or contains("identity") or contains("webapps") or contains("operate") or contains("tasklist") or contains("optimize") or contains("bpmn-js") or contains("form-js") or contains("dmn-js")
+      then false
+  else true end;
